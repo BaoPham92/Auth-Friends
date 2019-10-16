@@ -1,7 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import Friends from './components/Friends'
+
+// * COMPONENT IMPORTS
+import Friends from './components/Friends';
+import Form from './components/Form';
+
+// * PRIVATE ROUTE
+import PrivateRoute from './Routes/PrivateRoute';
 
 function App() {
   return (
@@ -10,9 +17,17 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
 
-      {/* // * FRIENDS COMPONENT RENDER HERE
+      {/* // * ROUTES
       */}
-      <Friends />
+
+      <Router>
+        <Switch>
+          <PrivateRoute path="/protected" component={Friends} />
+          <Route path="/login" component={Form} />
+          <Route component={Form} />
+        </Switch>
+      </Router>
+
     </div>
   );
 }

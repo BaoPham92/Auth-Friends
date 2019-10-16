@@ -7,12 +7,16 @@ const Friends = () => {
         userLogin()
     })
 
-    const userLogin = () => {
+    const userLogin = (data) => {
         const localToken = localStorage.getItem('token')
 
-        axiosWithAuth().post('/api/login', { username: 'Lambda School', password: 'i<3Lambd4' })
+        if (data.dataType === 'login') {
+
+            axiosWithAuth().post('/api/login', { username: data.username, password: data.password })
             .then(res => res.data.payload && localStorage.setItem('token', res.data.payload))
             .catch(err => console.log(err))
+
+        }
 
         // * LOG STORE TOKEN IF IT EXIST
         if (!!localToken === true) {
